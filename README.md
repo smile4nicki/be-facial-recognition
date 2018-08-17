@@ -1,2 +1,1 @@
-# Mirror2
-MIRЯOR²
+# MIRЯOR²
