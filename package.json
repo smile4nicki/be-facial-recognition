@@ -19,7 +19,9 @@
   "homepage": "https://github.com/TJNaish/MIRROR2#readme",
   "dependencies": {
     "face-recognition": "^0.9.3",
+    "fs": "0.0.1-security",
     "node-libpng": "^0.2.4",
+    "path": "^0.12.7",
     "x11": "^2.3.0"
   }
 }
