@@ -19,5 +19,3 @@ const trainDataByClass = imagesByClass.map(imgs =>
   imgs.slice(0, numTrainingFaces)
 );
 const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainingFaces));
-
-console.log("hi", trainDataByClass);
