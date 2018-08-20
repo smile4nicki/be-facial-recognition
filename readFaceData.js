@@ -8,17 +8,22 @@ const dataPath = path.resolve("./data/faces");
 const classNames = ["Nic", "Obama"];
 
 const allFiles = fs.readdirSync(dataPath);
-const imagesByClass = classNames.map(c =>
+const imagesByClass = classNames.map((c) =>
   allFiles
-    .filter(f => f.includes(c))
-    .map(f => path.join(dataPath, f))
-    .map(fp => fr.loadImage(fp))
+    .filter((f) => f.includes(c))
+    .map((f) => path.join(dataPath, f))
+    .map((fp) => {
+      const image = fr.loadImage(fp);
+      return detector.detectFaces(image, 150)[0];
+    })
 );
 
-const numTrainingFaces = 6;
-const trainDataByClass = imagesByClass.map(imgs =>
+const numTrainingFaces = 4;
+const trainDataByClass = imagesByClass.map((imgs) =>
   imgs.slice(0, numTrainingFaces)
 );
-const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainingFaces));
+const testDataByClass = imagesByClass.map((imgs) =>
+  imgs.slice(numTrainingFaces)
+);
 
 module.exports = { classNames, trainDataByClass, testDataByClass };
