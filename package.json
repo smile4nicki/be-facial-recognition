@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/TJNaish/MIRROR2/issues"
   },
-  "homepage": "https://github.com/TJNaish/MIRROR2#readme"
+  "homepage": "https://github.com/TJNaish/MIRROR2#readme",
+  "dependencies": {
+    "face-recognition": "^0.9.3",
+    "node-libpng": "^0.2.4",
+    "x11": "^2.3.0"
+  }
 }
