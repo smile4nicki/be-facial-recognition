@@ -7,10 +7,9 @@ const detector = fr.FaceDetector();
 
 recognizer.load(modelState);
 
-const stuartTest = fr.loadImage(
-  "/Users/stuarthughes/Downloads/random_face.jpeg"
-);
+const stuartTest = fr.loadImage("/Users/smile4nicki/Downloads/Nic9.png");
+const imageResized = detector.detectFaces(stuartTest, 150)[0];
 
-const prediction = recognizer.predict(stuartTest);
+const prediction = recognizer.predict(imageResized);
 
 console.log(prediction);
