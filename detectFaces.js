@@ -16,6 +16,7 @@ const modelState = recognizer.serialize();
 fs.writeFileSync("model.json", JSON.stringify(modelState));
 
 const errors = classNames.map(_ => []);
+
 testDataByClass.forEach((faces, label) => {
   const name = classNames[label];
   console.log();

@@ -1,10 +1,11 @@
 const path = require("path");
 const fs = require("fs");
 const fr = require("face-recognition");
+const detector = fr.FaceDetector();
 
 const dataPath = path.resolve("./data/faces");
 
-const classNames = ["stuart", "Nic"];
+const classNames = ["Nic", "Obama"];
 
 const allFiles = fs.readdirSync(dataPath);
 const imagesByClass = classNames.map(c =>
@@ -14,7 +15,7 @@ const imagesByClass = classNames.map(c =>
     .map(fp => fr.loadImage(fp))
 );
 
-const numTrainingFaces = 4;
+const numTrainingFaces = 6;
 const trainDataByClass = imagesByClass.map(imgs =>
   imgs.slice(0, numTrainingFaces)
 );
