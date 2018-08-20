@@ -19,3 +19,5 @@ const trainDataByClass = imagesByClass.map(imgs =>
   imgs.slice(0, numTrainingFaces)
 );
 const testDataByClass = imagesByClass.map(imgs => imgs.slice(numTrainingFaces));
+
+module.exports = { classNames, trainDataByClass, testDataByClass };
