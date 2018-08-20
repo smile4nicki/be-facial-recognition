@@ -8,7 +8,6 @@ const fs = require("fs");
 const recognizer = fr.FaceRecognizer();
 
 trainDataByClass.forEach((faces, label) => {
-  console.log(faces);
   const name = classNames[label];
   recognizer.addFaces(faces, name, 10);
 });
