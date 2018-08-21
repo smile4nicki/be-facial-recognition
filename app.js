@@ -1,22 +1,30 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const predictFace = require("./predictFace");
 app.use(cors());
-app.use(bodyParser.json({ limit: "50kb" }));
+app.use(bodyParser.json({ extended: true, limit: "5mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
+app.use(bodyParser());
 
 const writeImage = (req, res) => {
   let imageData = req.body.imageData;
-  fs.writeFile(
-    path.resolve(__dirname, "test1.png"),
-    imageData,
-    "base64",
-    function(err) {
-      if (err) throw err;
-    }
-  );
-  res.send({ message: "Image loaded" });
+  return new Promise(function(resolve, reject) {
+    fs.writeFile(
+      path.resolve(__dirname, "./data/faces/test_image.jpeg"),
+      imageData,
+      "base64",
+      function(err) {
+        if (err) reject(err);
+        else resolve();
+      }
+    );
+  })
+    .then(() => predictFace())
+    .then(prediction => res.send({ prediction }));
 };
 
 app.use("/predict", predictFace);

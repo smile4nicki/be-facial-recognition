@@ -5,13 +5,11 @@ const recognizer = fr.FaceRecognizer();
 const modelState = require("./model.json");
 const detector = fr.FaceDetector();
 
-const predictFace = (req, res) => {
+const predictFace = async () => {
   recognizer.load(modelState);
-  const stuartTest = fr.loadImage(
-    "/Users/stuarthughes/Downloads/random_face.jpeg"
-  );
-  const prediction = recognizer.predict(stuartTest);
-  res.send({ prediction });
+  const imageToTest = fr.loadImage(`./data/faces/test_image.jpeg`);
+  const prediction = recognizer.predict(imageToTest);
+  return prediction;
 };
 
 module.exports = predictFace;
