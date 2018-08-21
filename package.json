@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/TJNaish/MIRROR2#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
     "face-recognition": "^0.9.3",
     "fs": "0.0.1-security",
     "node-libpng": "^0.2.4",
