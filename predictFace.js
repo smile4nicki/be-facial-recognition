@@ -1,13 +1,13 @@
-const path = require("path");
-const fs = require("fs");
 const fr = require("face-recognition");
 const recognizer = fr.FaceRecognizer();
 const modelState = require("./model.json");
+const detector = fr.FaceDetector();
 
 const predictFace = async () => {
   recognizer.load(modelState);
   const imageToTest = fr.loadImage(`./data/faces/test_image.jpeg`);
-  const prediction = recognizer.predict(imageToTest);
+  const capturedFace = detector.detectFaces(imageToTest, 150)[0];
+  const prediction = recognizer.predictBest(capturedFace);
   return prediction;
 };
 

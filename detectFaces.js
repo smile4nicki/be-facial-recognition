@@ -3,19 +3,18 @@ const fr = require("face-recognition");
 const fs = require("fs");
 const recognizer = fr.FaceRecognizer();
 
-const detectFaces = newName => {
+const detectFaces = (newName) => {
   readFaceData(newName).then(
     ([classNames, trainDataByClass, testDataByClass]) => {
       trainDataByClass.forEach((faces, label) => {
         const name = classNames[label];
-        console.log(faces);
         recognizer.addFaces(faces, name, 10);
       });
 
       const modelState = recognizer.serialize();
       fs.writeFileSync("model.json", JSON.stringify(modelState));
 
-      const errors = classNames.map(_ => []);
+      const errors = classNames.map((_) => []);
       testDataByClass.forEach((faces, label) => {
         const name = classNames[label];
         console.log();
