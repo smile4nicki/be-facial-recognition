@@ -41,7 +41,7 @@ const writeNewUser = (req, res, next) => {
       }
     );
   });
-  detectFaces();
+  setTimeout(detectFaces, 10000);
 };
 
 app.use("/predict", predictFace);
