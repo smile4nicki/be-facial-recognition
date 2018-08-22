@@ -31,17 +31,20 @@ const writeTestImage = (req, res) => {
 const writeNewUser = (req, res, next) => {
   let newImages = req.body.newUserData.images;
   let name = req.body.newUserData.name;
-  newImages.forEach((image, index) => {
-    fs.writeFile(
-      path.resolve(__dirname, `./data/faces/${name}${index}.jpeg`),
-      image,
-      "base64",
-      function(err) {
-        if (err) throw err;
-      }
-    );
-  });
-  setTimeout(detectFaces, 10000);
+  return new Promise(function(resolve, reject) {
+    newImages.forEach((image, index) => {
+      let formattedImage = image.split(",")[1];
+      fs.writeFile(
+        path.resolve(__dirname, `./data/faces/${name}${index}.jpeg`),
+        formattedImage,
+        "base64",
+        function(err) {
+          if (err) reject(err);
+          else resolve();
+        }
+      );
+    });
+  }).then(() => detectFaces());
 };
 
 app.use("/predict", predictFace);
