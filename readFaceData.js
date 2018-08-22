@@ -5,7 +5,7 @@ const detector = fr.FaceDetector();
 
 const dataPath = path.resolve("./data/faces");
 
-const classNames = ["Nic", "Obama", "donnie"];
+const classNames = ["Nic", "Obama", "donnie", "Rick", "stuart"];
 
 const allFiles = fs.readdirSync(dataPath);
 const imagesByClass = classNames.map((c) =>

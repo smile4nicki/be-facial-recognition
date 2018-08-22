@@ -5,12 +5,13 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const predictFace = require("./predictFace");
+const detectFaces = require("./detectFaces");
 app.use(cors());
 app.use(bodyParser.json({ extended: true, limit: "5mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
 app.use(bodyParser());
 
-const writeImage = (req, res) => {
+const writeTestImage = (req, res) => {
   let imageData = req.body.imageData;
   return new Promise(function(resolve, reject) {
     fs.writeFile(
@@ -24,10 +25,27 @@ const writeImage = (req, res) => {
     );
   })
     .then(() => predictFace())
-    .then(prediction => res.send({ prediction }));
+    .then((prediction) => res.send({ prediction }));
+};
+
+const writeNewUser = (req, res, next) => {
+  let newImages = req.body.newUserData.images;
+  let name = req.body.newUserData.name;
+  newImages.forEach((image, index) => {
+    fs.writeFile(
+      path.resolve(__dirname, `./data/faces/${name}${index}.jpeg`),
+      image,
+      "base64",
+      function(err) {
+        if (err) throw err;
+      }
+    );
+  });
+  detectFaces();
 };
 
 app.use("/predict", predictFace);
-app.post("/write", writeImage);
+app.post("/write", writeTestImage);
+app.post("/newUser", writeNewUser);
 
 module.exports = app;

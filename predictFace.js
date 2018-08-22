@@ -3,7 +3,6 @@ const fs = require("fs");
 const fr = require("face-recognition");
 const recognizer = fr.FaceRecognizer();
 const modelState = require("./model.json");
-const detector = fr.FaceDetector();
 
 const predictFace = async () => {
   recognizer.load(modelState);
