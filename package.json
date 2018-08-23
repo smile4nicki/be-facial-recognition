@@ -1,22 +1,25 @@
 {
-  "name": "MIRROR2",
+  "name": "be-facial-recognition",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines" : {
+    "node" :"9.7.1"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TJNaish/MIRROR2.git"
+    "url": "git+https://github.com/smile4nicki/be-facial-recognition"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TJNaish/MIRROR2/issues"
+    "url": "https://github.com/smile4nicki/be-facial-recognition/issues"
   },
-  "homepage": "https://github.com/TJNaish/MIRROR2#readme",
+  "homepage": "https://github.com/smile4nicki/be-facial-recognition#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
