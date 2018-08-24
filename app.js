@@ -14,10 +14,11 @@ let newName = "";
 
 const writeTestImage = (req, res) => {
   let imageData = req.body.imageData;
+  let formattedImage = imageData.split(",")[1];
   return new Promise(function(resolve, reject) {
     fs.writeFile(
       path.resolve(__dirname, "./data/faces/test_image.jpeg"),
-      imageData,
+      formattedImage,
       "base64",
       function(err) {
         if (err) reject(err);
@@ -26,7 +27,10 @@ const writeTestImage = (req, res) => {
     );
   })
     .then(() => predictFace())
-    .then((prediction) => res.send({ prediction }));
+    .then((prediction) => {
+      console.log(prediction);
+      res.send({ prediction });
+    });
 };
 
 const writeNewUser = (req, res, next) => {
@@ -48,7 +52,6 @@ const writeNewUser = (req, res, next) => {
   }).then(() => detectFaces(newName));
 };
 
-app.use("/predict", predictFace);
 app.post("/write", writeTestImage);
 app.post("/newUser", writeNewUser);
 

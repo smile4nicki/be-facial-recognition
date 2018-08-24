@@ -7,8 +7,12 @@ const predictFace = async () => {
   recognizer.load(modelState);
   const imageToTest = fr.loadImage(`./data/faces/test_image.jpeg`);
   const capturedFace = detector.detectFaces(imageToTest, 150)[0];
-  const prediction = recognizer.predictBest(capturedFace);
-  return prediction;
+  if (capturedFace === undefined) {
+    return "no match!";
+  } else {
+    const prediction = recognizer.predictBest(capturedFace);
+    return prediction;
+  }
 };
 
 module.exports = predictFace;
