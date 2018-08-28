@@ -23,13 +23,14 @@
   "homepage": "https://github.com/smile4nicki/be-facial-recognition#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "libpng": "1.6.35",
-    "xquartz": "2.7.11",
     "cmake": "3.12.1",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "face-recognition": "^0.9.3",
     "fs": "0.0.1-security",
-    "path": "^0.12.7"
+    "libpng": "1.6.35",
+    "nodemon": "^1.18.3",
+    "path": "^0.12.7",
+    "xquartz": "2.7.11"
   }
 }

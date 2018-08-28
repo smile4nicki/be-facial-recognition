@@ -7,6 +7,7 @@ const detectFaces = (newName) => {
   readFaceData(newName).then(
     ([classNames, trainDataByClass, testDataByClass]) => {
       trainDataByClass.forEach((faces, label) => {
+        console.log(faces);
         const name = classNames[label];
         recognizer.addFaces(faces, name, 10);
       });

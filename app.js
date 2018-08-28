@@ -49,7 +49,9 @@ const writeNewUser = (req, res, next) => {
         }
       );
     });
-  }).then(() => detectFaces(newName));
+  })
+    .then(() => detectFaces(newName))
+    .catch(console.log);
 };
 
 app.post("/write", writeTestImage);
