@@ -8,7 +8,7 @@ const dataPath = path.resolve("./data/faces");
 let classNamesForModel;
 
 const detectFaces = newName => {
-  readFaceData(newName).then(
+  return readFaceData(newName).then(
     ([classNamesForModel, trainDataByClass, testDataByClass]) => {
       trainDataByClass.forEach((faces, label) => {
         console.log(faces);
@@ -44,8 +44,9 @@ const detectFaces = newName => {
       });
       console.log("result:");
       console.log(result);
+      return result;
     }
   );
 };
 
-module.exports = { detectFaces };
+module.exports = detectFaces;

@@ -3,6 +3,7 @@ const { request } = require("supertest");
 const fs = require("fs");
 
 const readFaceData = require("../readFaceData");
+const detectFaces = require("../detectFaces");
 
 describe("readFaceData", function() {
   this.timeout(35000);
@@ -32,5 +33,18 @@ describe("readFaceData", function() {
     const trainingData = faceData[1];
     expect(trainingData.length).to.equal(newClassNamesLength);
     expect(trainingData[0].length).to.equal(4);
+  });
+});
+
+describe.only("detectFaces", function() {
+  this.timeout(30000);
+  beforeEach(function() {
+    const classNames = { classNames: ["stuart", "Nic", "Ant", "Tim", "Rick"] };
+    fs.writeFileSync("./data/classNames.json", JSON.stringify(classNames));
+  });
+  it("returns a result", async () => {
+    const resultData = await detectFaces("Tim");
+    expect(resultData).to.be.an("array");
+    expect(resultData.length).to.equal(5);
   });
 });
