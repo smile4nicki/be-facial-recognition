@@ -5,11 +5,11 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const predictFace = require("./predictFace");
-const detectFaces = require("./detectFaces");
+const { detectFaces } = require("./detectFaces");
 app.use(cors());
 app.use(bodyParser.json({ extended: true, limit: "5mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "5mb" }));
-app.use(bodyParser());
+// app.use(bodyParser());
 let newName = "";
 
 const writeTestImage = (req, res) => {
@@ -34,6 +34,7 @@ const writeTestImage = (req, res) => {
 };
 
 const writeNewUser = (req, res, next) => {
+  console.log("Hi!!!!!!!");
   let newImages = req.body.newUserData.images;
   newName = req.body.newUserData.name;
   return new Promise(function(resolve, reject) {
@@ -46,6 +47,7 @@ const writeNewUser = (req, res, next) => {
         function(err) {
           if (err) reject(err);
           else resolve();
+          res.send({ message: "new user done" });
         }
       );
     });
