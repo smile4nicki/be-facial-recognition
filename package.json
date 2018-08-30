@@ -23,6 +23,7 @@
   "homepage": "https://github.com/smile4nicki/be-facial-recognition#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
     "cmake": "3.12.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
@@ -32,6 +33,7 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3",
     "path": "^0.12.7",
+    "supertest": "^3.1.0",
     "xquartz": "2.7.11"
   }
 }

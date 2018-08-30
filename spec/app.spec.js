@@ -1,9 +1,10 @@
 const { expect } = require("chai");
-const { request } = require("supertest");
+const request = require("supertest");
 const fs = require("fs");
-
+const app = require("../app");
 const readFaceData = require("../readFaceData");
 const detectFaces = require("../detectFaces");
+let testPayload;
 
 describe("readFaceData", function() {
   this.timeout(35000);
@@ -36,7 +37,7 @@ describe("readFaceData", function() {
   });
 });
 
-describe.only("detectFaces", function() {
+describe("detectFaces", function() {
   this.timeout(30000);
   beforeEach(function() {
     const classNames = { classNames: ["stuart", "Nic", "Ant", "Tim", "Rick"] };
@@ -46,5 +47,22 @@ describe.only("detectFaces", function() {
     const resultData = await detectFaces("Tim");
     expect(resultData).to.be.an("array");
     expect(resultData.length).to.equal(5);
+  });
+});
+
+describe.only("API call", function() {
+  this.timeout(30000);
+  beforeEach(function() {
+    const classNames = { classNames: ["stuart", "Nic", "Ant", "Tim", "Rick"] };
+    fs.writeFileSync("./data/classNames.json", JSON.stringify(classNames));
+    testPayload = fs.readFileSync(__dirname + "/../data/testPayload.json");
+  });
+  it("returns a 200 response to the user", () => {
+    request(app)
+      .post("/newUser")
+      .send(JSON.parse(testPayload))
+      .then(res => {
+        console.log(res);
+      });
   });
 });
