@@ -74,7 +74,6 @@ describe.only("prediction API", function() {
       .send(predictTestJson)
       .then(res => {
         expect(res.body.prediction.distance).to.be.greaterThan(0.6);
-        console.log(res.body.prediction);
       });
   });
 });
