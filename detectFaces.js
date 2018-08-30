@@ -42,8 +42,8 @@ const detectFaces = newName => {
         const accuracy = parseInt((numCorrect / numTestFaces) * 10000) / 100;
         return `${className} ( ${accuracy}% ) : ${numCorrect} of ${numTestFaces} faces have been recognized correctly`;
       });
-      console.log("result:");
-      console.log(result);
+      // console.log("result:");
+      // console.log(result);
       return result;
     }
   );

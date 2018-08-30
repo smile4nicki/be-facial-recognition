@@ -4,6 +4,7 @@ const fs = require("fs");
 const app = require("../app");
 const readFaceData = require("../readFaceData");
 const detectFaces = require("../detectFaces");
+const predictFace = require("../predictFace");
 let testPayload;
 
 describe("readFaceData", function() {
@@ -50,19 +51,51 @@ describe("detectFaces", function() {
   });
 });
 
-describe.only("API call", function() {
-  this.timeout(30000);
+describe.only("predictFaces", function() {
+  this.timeout(6000);
+  it("returns a prediction less than or equal to 0.6 for a known user", () => {
+    const predictTestJson = JSON.parse(
+      fs.readFileSync(__dirname + "/../data/predictKnownUser.json")
+    );
+    return request(app)
+      .post("/write")
+      .send(predictTestJson)
+      .then(res => {
+        expect(res.body.prediction.className).to.equal("Donald");
+        expect(res.body.prediction.distance).to.be.lessThan(0.61);
+      });
+  });
+  it("returns a prediction higher than 0.6 for a known user", () => {
+    const predictTestJson = JSON.parse(
+      fs.readFileSync(__dirname + "/../data/predictUnknownUser.json")
+    );
+    return request(app)
+      .post("/write")
+      .send(predictTestJson)
+      .then(res => {
+        expect(res.body.prediction.distance).to.be.greaterThan(0.6);
+        console.log(res.body.prediction);
+      });
+  });
+});
+
+describe("End to end API call", function() {
+  this.timeout(60000);
   beforeEach(function() {
-    const classNames = { classNames: ["stuart", "Nic", "Ant", "Tim", "Rick"] };
+    const classNames = {
+      classNames: ["stuart", "Nic", "Ant", "Tim", "Rick"]
+    };
     fs.writeFileSync("./data/classNames.json", JSON.stringify(classNames));
     testPayload = fs.readFileSync(__dirname + "/../data/testPayload.json");
   });
-  it("returns a 200 response to the user", () => {
-    request(app)
+  it("returns the result of the updated model with a new user added", () => {
+    return request(app)
       .post("/newUser")
       .send(JSON.parse(testPayload))
       .then(res => {
-        console.log(res);
+        const body = res.body;
+        expect(body).to.have.all.keys("result");
+        expect(body.result.length).to.equal(6);
       });
   });
 });
