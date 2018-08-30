@@ -51,7 +51,7 @@ describe("detectFaces", function() {
   });
 });
 
-describe.only("predictFaces", function() {
+describe.only("prediction API", function() {
   this.timeout(6000);
   it("returns a prediction less than or equal to 0.6 for a known user", () => {
     const predictTestJson = JSON.parse(
